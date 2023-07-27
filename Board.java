@@ -152,5 +152,53 @@ public class Board {
         return false;
     }
 
+    public void verticalMove(int row, int column, String direction){
+        Tile initial = board[border][column];
+        Tile compare = board[row][column];
+        if (initial.getValue() >= 0 || initial.getValue() == compare.getValue()){
+            if (row > border || (direction.equals("down") && (row > border))){
+                int addScore = initial.getValue() + compare.getValue();
+                if (initial.getValue() != 0){
+                    score += addScore;
+                }
+                initial.setValue(addScore);
+                compare.setValue(0);
+            }
+        }else{
+            if (direction.equals("down")){
+                border--;
+            }else{
+                border++;
+            }
+            verticalMove(row,column,direction);
+        }
+    }
+
+    public void upMove(){
+        for (int i = 0; i < grids; i++){
+            border = 0;
+            for (int j = 0; j < grids; j++){
+                if (board[j][i].getValue() != 0){
+                    if (border <= j){
+                        verticalMove(j,i, "up");
+                    }
+                }
+            }
+        }
+    }
+
+    public void downMove(){
+        for (int i = 0; i < grids; i++){
+            border = grids -1;
+            for (int j = grids; j >= 0; j--){
+                if (board[j][i].getValue() != 0){
+                    if (border >= j){
+                        verticalMove(j, i, "down");
+                    }
+                }
+            }
+        }
+    }
+
 
 }
