@@ -3,7 +3,7 @@ import java.awt.*;
 public class Tile {
 
     int value;
-    Color tileColor;
+    Color tileColor = Color.green;
 
     public Tile(){
         value = 0;

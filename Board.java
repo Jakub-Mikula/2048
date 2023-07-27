@@ -152,25 +152,26 @@ public class Board {
         return false;
     }
 
-    public void verticalMove(int row, int column, String direction){
+    private void verticalMove(int row, int column, String direction ){
         Tile initial = board[border][column];
         Tile compare = board[row][column];
-        if (initial.getValue() == 0 || initial.getValue() == compare.getValue()){
-            if (row > border || (direction.equals("down") && (row < border))){
+        if(initial.getValue() == 0 || initial.getValue() == compare.getValue()) {
+            if (row > border || (direction.equals("down") && (row < border ))) {
                 int addScore = initial.getValue() + compare.getValue();
-                if (initial.getValue() != 0){
+                if (initial.getValue() != 0) {
                     score += addScore;
                 }
                 initial.setValue(addScore);
                 compare.setValue(0);
             }
-        }else{
-            if (direction.equals("down")){
+        } else {
+            if (direction.equals("down")) {
                 border--;
-            }else{
+            }
+            else {
                 border++;
             }
-            verticalMove(row,column,direction);
+            verticalMove(row, column, direction);
         }
     }
 
@@ -187,12 +188,12 @@ public class Board {
         }
     }
 
-    public void downMove(){
-        for (int i = 0; i < grids; i++){
-            border = grids -1;
-            for (int j = grids; j >= 0; j--){
-                if (board[j][i].getValue() != 0){
-                    if (border >= j){
+    public void downMove() {
+        for (int i = 0; i < grids; i++) {
+            border = (grids - 1);
+            for (int j = grids - 1; j >= 0; j--) {
+                if (board[j][i].getValue() != 0) {
+                    if (border >= j) {
                         verticalMove(j, i, "down");
                     }
                 }
@@ -200,25 +201,28 @@ public class Board {
         }
     }
 
-    public void horizontalMove(int row, int column, String direction){
-        Tile initial = board[border][column];
+    private void horizontalMove(int row, int column, String direction) {
+        Tile initial = board[row][border];
         Tile compare = board[row][column];
-        if(initial.getValue() ==0 || initial.getValue() == compare.getValue()){
-            if (column > border || (direction.equals("right") && (column < border))){
-                int addScore = initial.getValue()+compare.getValue();
-                if (initial.getValue() != 0){
-                    score = score + addScore;
+        if (initial.getValue() == 0 || initial.getValue() == compare.getValue()) {
+            if (column > border || (direction.equals("right") && (column < border))) {
+                int addScore = initial.getValue() + compare.getValue();
+                if (initial.getValue() != 0) {
+                    score += addScore;
                 }
                 initial.setValue(addScore);
                 compare.setValue(0);
             }
-        }else {
-         if (direction.equals("right")){
-             border--;
-         }else {
-             border++;
-         }
-         horizontalMove(row, column, direction);
+        }
+        else {
+            if (direction.equals( "right"))
+            {
+                border--;
+            }
+            else {
+                border++;
+            }
+            horizontalMove(row, column, direction);
         }
     }
 
@@ -238,7 +242,7 @@ public class Board {
     public void rightMove(){
         for (int i = 0; i < grids; i++){
             border = (grids -1);
-            for (int j = grids-1; j >=0; j--){
+            for (int j = (grids-1); j >= 0; j--){
                 if (board[i][j].getValue() != 0){
                     if (border >=j){
                         horizontalMove(i, j, "right");
