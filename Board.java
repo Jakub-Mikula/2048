@@ -155,8 +155,8 @@ public class Board {
     public void verticalMove(int row, int column, String direction){
         Tile initial = board[border][column];
         Tile compare = board[row][column];
-        if (initial.getValue() >= 0 || initial.getValue() == compare.getValue()){
-            if (row > border || (direction.equals("down") && (row > border))){
+        if (initial.getValue() == 0 || initial.getValue() == compare.getValue()){
+            if (row > border || (direction.equals("down") && (row < border))){
                 int addScore = initial.getValue() + compare.getValue();
                 if (initial.getValue() != 0){
                     score += addScore;
@@ -194,6 +194,54 @@ public class Board {
                 if (board[j][i].getValue() != 0){
                     if (border >= j){
                         verticalMove(j, i, "down");
+                    }
+                }
+            }
+        }
+    }
+
+    public void horizontalMove(int row, int column, String direction){
+        Tile initial = board[border][column];
+        Tile compare = board[row][column];
+        if(initial.getValue() ==0 || initial.getValue() == compare.getValue()){
+            if (column > border || (direction.equals("right") && (column < border))){
+                int addScore = initial.getValue()+compare.getValue();
+                if (initial.getValue() != 0){
+                    score = score + addScore;
+                }
+                initial.setValue(addScore);
+                compare.setValue(0);
+            }
+        }else {
+         if (direction.equals("right")){
+             border--;
+         }else {
+             border++;
+         }
+         horizontalMove(row, column, direction);
+        }
+    }
+
+    public void leftMove(){
+        for (int i = 0; i < grids; i++){
+            border = 0;
+            for (int j = 0; j < grids; j++){
+                if (board[i][j].getValue() != 0){
+                    if (border <= j){
+                        horizontalMove(i, j, "left");
+                    }
+                }
+            }
+        }
+    }
+
+    public void rightMove(){
+        for (int i = 0; i < grids; i++){
+            border = (grids -1);
+            for (int j = grids-1; j >=0; j--){
+                if (board[i][j].getValue() != 0){
+                    if (border >=j){
+                        horizontalMove(i, j, "right");
                     }
                 }
             }
